@@ -18,12 +18,12 @@ export class Home extends Component {
 
   render() {
     return (
-      <ScrollView style={{flexGrow:1,backgroundColor:'#FE2E2E'}}>
-        <View style={{flex:1}}>
-        <Text style={{width:'80%',alignSelf:'center',marginTop:20}}>This is the home screen</Text>
+      <ScrollView>
+        
+        <Text style={{width:'80%',height:40,alignSelf:'center',marginTop:20}}>This is the home screen</Text>
         
         <TextInput
-          style={{height: 40,width:'80%', marginTop:20, borderColor: 'gray', borderWidth: 1,alignSelf:'center'}}
+          style={{width:'80%',height:40, marginTop:20, borderColor: 'gray', borderWidth: 1,alignSelf:'center'}}
           placeholder='Ingrese un producto..'
           onChangeText={(text) => this.setState({string:text})}
           onSubmitEditing={this._dismissKeyboard}
@@ -44,12 +44,15 @@ export class Home extends Component {
               {key: 'Jillian'},
               {key: 'Jimmy'},
               {key: 'Julie'},
+              {key: 'Juan'},
+              {key: 'Pepe'},
+              {key: 'Lucas'},
             ]}
             renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
           />
         </View>
         <Button onPress={() => this.props.navigation.navigate('SettingScreen')} title="Settings"/>
-        </View>
+        
       </ScrollView>
     )
   }
@@ -76,7 +79,7 @@ const styles = StyleSheet.create({
   containerList: {
     alignSelf:'center',
     width:'80%',
-    height:'100%',
+    height:'auto',
     paddingTop: 22
    },
    item: {

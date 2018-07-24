@@ -12,8 +12,8 @@ import Settings from './screens/Settings';
 import Home from './screens/Home';
 
 const AppNavigator = createStackNavigator({
-  SettingScreen: { screen: Settings },
-  HomeScreen: { screen: Home }
+  HomeScreen: { screen: Home },
+  SettingScreen: { screen: Settings }
 });
 
 export default class App extends Component {

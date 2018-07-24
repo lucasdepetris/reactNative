@@ -23,7 +23,7 @@ export class Home extends Component {
         <Text style={{width:'80%',height:40,alignSelf:'center',marginTop:20}}>This is the home screen</Text>
         
         <TextInput
-          style={{width:'80%',height:40, marginTop:20, borderColor: 'gray', borderWidth: 1,alignSelf:'center'}}
+          style={{width:'80%',height:40, marginTop:20, padding:10,borderColor: 'gray', borderWidth: 1,alignSelf:'center'}}
           placeholder='Ingrese un producto..'
           onChangeText={(text) => this.setState({string:text})}
           onSubmitEditing={this._dismissKeyboard}

@@ -1,7 +1,7 @@
 // Home.js
 
 import React, { Component } from 'react';
-import { Alert,View, Text , Button, TouchableOpacity,TouchableWithoutFeedback, TextInput, StyleSheet,Keyboard} from 'react-native';
+import { Alert,ScrollView,View, Text , Button, TouchableOpacity,TouchableWithoutFeedback, TextInput, StyleSheet,Keyboard,FlatList} from 'react-native';
 
 export class Home extends Component {
   state = {
@@ -18,7 +18,8 @@ export class Home extends Component {
 
   render() {
     return (
-      <View>
+      <ScrollView style={{flexGrow:1,backgroundColor:'#FE2E2E'}}>
+        <View style={{flex:1}}>
         <Text style={{width:'80%',alignSelf:'center',marginTop:20}}>This is the home screen</Text>
         
         <TextInput
@@ -32,9 +33,24 @@ export class Home extends Component {
             <Text style={styles.buttonText}>Buscar</Text>
           </View>
         </TouchableOpacity>
+        <View style={styles.containerList}>
+          <FlatList
+            data={[
+              {key: 'Devin'},
+              {key: 'Jackson'},
+              {key: 'James'},
+              {key: 'Joel'},
+              {key: 'John'},
+              {key: 'Jillian'},
+              {key: 'Jimmy'},
+              {key: 'Julie'},
+            ]}
+            renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+          />
+        </View>
         <Button onPress={() => this.props.navigation.navigate('SettingScreen')} title="Settings"/>
-
-      </View>
+        </View>
+      </ScrollView>
     )
   }
 }
@@ -56,5 +72,16 @@ const styles = StyleSheet.create({
   buttonText: {
     padding: 20,
     color: 'white'
-  }
+  },
+  containerList: {
+    alignSelf:'center',
+    width:'80%',
+    height:'100%',
+    paddingTop: 22
+   },
+   item: {
+     padding: 10,
+     fontSize: 18,
+     height: 44,
+   },
 })

@@ -83,8 +83,8 @@ export class Home extends Component {
         <View style={styles.containerList}>
           <FlatList
             data={this.state.productos}
-            renderItem={({item}) => <Text key={item.id} style={styles.item}>{item.id}</Text>}
-            keyExtractor={(item, index) => index}
+            renderItem={({item}) => <Text style={styles.item}>{item.id}</Text>}
+            keyExtractor={(item) => item.id}
           />
         </View>
         <Button onPress={() => this.props.navigation.navigate('SettingScreen')} title="Settings"/>

@@ -11,7 +11,8 @@ var reqCancelRequest = axios.CancelToken.source();
 export class Home extends Component {
   state = {
     string:'',
-    loading:false
+    loading:false,
+    productos:[]
   }
 
   componentDidMount(){
@@ -30,13 +31,13 @@ export class Home extends Component {
 
   _getProductosByString = (producto) => {
     
-    axios.get(`https://d735s5r2zljbo.cloudfront.net/prod/productos?string=${producto}&lat=-34.6012424&lng=-58.377395&limit=10`, {
+    axios.get(`https://d735s5r2zljbo.cloudfront.net/prod/productos?string=${producto}&lat=-34.6012424&lng=-58.377395&limit=20`, {
       cancelToken: reqCancelRequest.token
     })
     .then(response => {
       console.log(response.data)
       console.log(response.data.productos)
-      this.setState({loading:false})
+      this.setState({loading:false,productos:response.data.productos})
     })
     .catch(thrown => {
       if (axios.isCancel(thrown)) {
@@ -81,20 +82,9 @@ export class Home extends Component {
         </TouchableOpacity>
         <View style={styles.containerList}>
           <FlatList
-            data={[
-              {key: 'Devin'},
-              {key: 'Jackson'},
-              {key: 'James'},
-              {key: 'Joel'},
-              {key: 'John'},
-              {key: 'Jillian'},
-              {key: 'Jimmy'},
-              {key: 'Julie'},
-              {key: 'Juan'},
-              {key: 'Pepe'},
-              {key: 'Lucas'},
-            ]}
-            renderItem={({item}) => <Text style={styles.item}>{item.key}</Text>}
+            data={this.state.productos}
+            renderItem={({item}) => <Text key={item.id} style={styles.item}>{item.id}</Text>}
+            keyExtractor={(item, index) => index}
           />
         </View>
         <Button onPress={() => this.props.navigation.navigate('SettingScreen')} title="Settings"/>

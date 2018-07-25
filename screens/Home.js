@@ -65,7 +65,7 @@ export class Home extends Component {
     }
 
     return (
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps='handled'>
         
         <Text style={{width:'80%',height:40,alignSelf:'center',marginTop:20}}>This is the home screen</Text>
         
@@ -73,7 +73,7 @@ export class Home extends Component {
           style={{width:'80%',height:40, marginTop:20, padding:10,borderColor: 'gray', borderWidth: 1,alignSelf:'center'}}
           placeholder='Ingrese un producto..'
           onChangeText={(text) => this.setState({string:text})}
-          onSubmitEditing={this._dismissKeyboard}
+          onEndEditing={this._dismissKeyboard}
         />
         <TouchableOpacity onPress={this._onPressButton}>
           <View style={styles.button}>

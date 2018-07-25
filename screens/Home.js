@@ -30,11 +30,12 @@ export class Home extends Component {
 
   _getProductosByString = (producto) => {
     
-    axios.get(`https://d735s5r2zljbo.cloudfront.net/prod/productos?string=${producto}&lat=-34.6012424&lng=58.377395&limit=10`, {
+    axios.get(`https://d735s5r2zljbo.cloudfront.net/prod/productos?string=${producto}&lat=-34.6012424&lng=-58.377395&limit=10`, {
       cancelToken: reqCancelRequest.token
     })
     .then(response => {
       console.log(response.data)
+      console.log(response.data.productos)
       this.setState({loading:false})
     })
     .catch(thrown => {
@@ -61,7 +62,7 @@ export class Home extends Component {
     if(this.state.loading){
       return <ActivityIndicator size="large" color="#0000ff" />
     }
-    
+
     return (
       <ScrollView>
         

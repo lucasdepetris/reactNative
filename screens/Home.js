@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { Alert,ScrollView,View, Text , Button, TouchableOpacity,
         TouchableWithoutFeedback, TextInput, StyleSheet,
-        Keyboard,FlatList,ActivityIndicator} from 'react-native';
+        Keyboard,FlatList,ActivityIndicator,Image} from 'react-native';
 import axios from 'axios';
 
 var reqCancelRequest = axios.CancelToken.source();
@@ -83,7 +83,19 @@ export class Home extends Component {
         <View style={styles.containerList}>
           <FlatList
             data={this.state.productos}
-            renderItem={({item}) => <Text style={styles.item}>{item.id}</Text>}
+            renderItem={({item}) =>
+                         <View style={{flex: 1, flexDirection: 'row',marginBottom:10}}>
+                          <Image style={{width:'30%',alignSelf: 'center', height: 75,resizeMode:Image.resizeMode.contain}} 
+                                 source={{uri:"https://imagenes.preciosclaros.gob.ar/productos/"+item.id+".jpg"}}
+                                
+                                />
+                          <View style={{width:'70%'}}>
+                            <Text>{item.nombre}</Text>      
+                            <Text>{item.marca}</Text>
+                            <Text>{item.id}</Text>
+                          </View>
+                        </View>
+                        }
             keyExtractor={(item) => item.id}
           />
         </View>

@@ -5,6 +5,7 @@ import { Alert,ScrollView,View, Text , Button, TouchableOpacity,
         TouchableWithoutFeedback, TextInput, StyleSheet,
         Keyboard,FlatList,ActivityIndicator,Image} from 'react-native';
 import axios from 'axios';
+import GooglePlacesInput from '../components/GooglePlacesInput'
 
 var reqCancelRequest = axios.CancelToken.source();
 
@@ -12,7 +13,8 @@ export class Home extends Component {
   state = {
     string:'',
     loading:false,
-    productos:[]
+    productos:[],
+    location:{}
   }
 
   componentDidMount(){
@@ -20,9 +22,17 @@ export class Home extends Component {
     reqCancelRequest = axios.CancelToken.source();
   }
 
+  _handleUbicacion = (location) => {
+    this.setState({location:location})
+  }
+
   _onPressButton = () => {
-    this.setState({loading:true})
-    this._getProductosByString(this.state.string)
+    if(this.state.string != '' && this.state.location.lat){
+      this.setState({loading:true})
+      this._getProductosByString(this.state.string)
+    }else{
+      console.log('Debes completar los campos')
+    }
   }
 
   _dismissKeyboard = () =>{
@@ -31,7 +41,7 @@ export class Home extends Component {
 
   _getProductosByString = (producto) => {
     
-    axios.get(`https://d735s5r2zljbo.cloudfront.net/prod/productos?string=${producto}&lat=-34.6012424&lng=-58.377395&limit=20`, {
+    axios.get(`https://d735s5r2zljbo.cloudfront.net/prod/productos?string=${producto}&lat=${this.state.location.lat}&lng=${this.state.location.lng}&limit=20`, {
       cancelToken: reqCancelRequest.token
     })
     .then(response => {
@@ -60,6 +70,7 @@ export class Home extends Component {
   }
 
   render() {
+    
     if(this.state.loading){
       return <ActivityIndicator size="large" color="#0000ff" />
     }
@@ -68,7 +79,7 @@ export class Home extends Component {
       <ScrollView keyboardShouldPersistTaps='handled'>
         
         <Text style={{width:'80%',height:40,alignSelf:'center',marginTop:20}}>This is the home screen</Text>
-        
+        <GooglePlacesInput onResults={this._handleUbicacion} />
         <TextInput
           style={{width:'80%',height:40, marginTop:20, padding:10,borderColor: 'gray', borderWidth: 1,alignSelf:'center'}}
           placeholder='Ingrese un producto..'
